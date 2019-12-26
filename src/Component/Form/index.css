@@ -1,0 +1,68 @@
+:root {
+  --main-width: 270px;
+  --resp-height: 40px;
+}
+
+.bgr-form {
+  display: grid;
+  justify-content: center;
+  width: 700px;
+  height: 500px;
+  background-image: url('palindrome.png');
+}
+
+.form-box {
+  margin-top: 35%;
+}
+
+.textarea {
+  width: 264px;
+  height: 100px;
+}
+
+.form-btn {
+  display: grid;
+  justify-content: center;
+  width: var(--main-width);
+  height: var(--resp-height);
+  background: #A5BDC1;
+  cursor: pointer;
+}
+
+.text-btn {
+  color: #FFFFFF;
+  font-size: 30px;
+  margin-top: 2px;
+}
+
+.form-btn:hover {
+  background-color: #002F44;
+}
+
+.form-btn:active {
+  background-color: #0000FF;
+}
+
+.is-palindrome-resp {
+  display: grid;
+  justify-content: center;
+  width: var(--main-width);
+  height: var(--resp-height);
+  background: #B3EBD4;
+}
+
+.is-not-palindrome-resp {
+  display: grid;
+  justify-content: center;
+  width: var(--main-width);
+  height: var(--resp-height);
+  background: #E3747A;
+}
+
+.err {
+  display: grid;
+  justify-content: center;
+  width: var(--main-width);
+  height: var(--resp-height);
+  background: #FFFFFF;
+}
