@@ -4,32 +4,37 @@ import './index.css';
 
 const Form = () => {
 
-  const { method, result, responseStyle } = useContext(PhraseContext);
-  const [phrase, setPhrase] = useState('');
+  const { setPhrase, isPalindrome, phrase } = useContext(PhraseContext);
   const [onDataProcessing, setOnDataProcessing] = useState(false);
 
   const dataProcessing = () => {
     setOnDataProcessing(true)
-    method(phrase);
+    setPhrase(phrase);
     setTimeout(() => {
       setPhrase('');
       setOnDataProcessing(false)
     }, 3000);
   };
 
-  const response = onDataProcessing ? <div 
-    className={ responseStyle }>
-      { result }
-    </div> : <div 
+  const resultStyle = isPalindrome ? 'is-palindrome-resp' : 'is-not-palindrome-resp';
+  const resultText = isPalindrome ? 'is palindrome' : 'is not palindrome';
+  const response = onDataProcessing ? (
+    <div className={ resultStyle }>
+      <p className="resp">{resultText}</p>
+    </div>
+  ) : (
+    <div 
       className="form-btn"
       onClick={ dataProcessing }
-      >
-        <p className="text-btn">check phrase</p>
+    >
+      <p className="text-btn">check phrase</p>
     </div>
+  );
 
   const keyPress = (e) => {
-    if(e.key === 'Enter'){
-      dataProcessing()
+    if (e.key === 'Enter'){
+      e.preventDefault();
+      dataProcessing();
     }
   };
 

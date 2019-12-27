@@ -6,62 +6,32 @@ import './app.css';
 class App extends Component {
 
   state = {
-    result: undefined,
-    phrase: undefined,
-
-    responseStyle: undefined,
+    isPalindrome: false,
+    phrase: ''
   }
 
-  gettingString = phrase => {
-    if ( phrase.length > 0 ) {
-      this.setState({
-        phrase: phrase
-      });
-      const string = phrase.replace( /\s/g, '' ).toLowerCase();
-      this.stringCheck(string);
-      this.clearState();
+  checkPhrase = phrase => {
+    const formattedPhrase = phrase.replace( /\s/g, '' ).toLowerCase();
+    const reversedPhrase = formattedPhrase.split('').reverse().join('');
+    if (phrase === reversedPhrase) {
+      this.setState({ isPalindrome: true });
     } else {
-      this.setState({
-        phrase: undefined,
-        result: <p className="err-resp">please enter a phrase at the beginning</p>,
-        responseStyle: "err",
-      });
-      this.clearState();
+      this.setState({ isPalindrome: false });
     }
-  };
+  }
 
-  stringCheck = string => {
-    if (string === string.split('').reverse().join('')) {
-      this.setState ({
-        result: <p className="resp">is palindrome</p>,
-        responseStyle: "is-palindrome-resp",
-      })
-    } else {
-      this.setState ({
-        result: <p className="resp">is not palindrome</p>,
-        responseStyle: "is-not-palindrome-resp",
-      })
-    }
-  };
-
-  clearState = () => {
-    setTimeout(() => {
-      this.setState({
-        result: undefined,
-        phrase: undefined,
-        responseStyle: undefined,
-      })
-    }, 3000);
-  };
+  setPhrase = phrase => {
+    this.setState({ phrase }, () => this.checkPhrase(this.state.phrase));
+  }
 
   render() {
-    const { phrase, result, responseStyle } = this.state;
+    const { isPalindrome, phrase } = this.state;
     const phraseContext = {
+      setPhrase: this.setPhrase,
+      isPalindrome,
       phrase,
-      result,
-      responseStyle,
-      method: this.gettingString
-    }
+    };
+
     return (
       <div className="App">
         <PhraseProvider value = { phraseContext }>
