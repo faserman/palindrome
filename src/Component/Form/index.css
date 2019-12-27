@@ -66,3 +66,9 @@
   height: var(--resp-height);
   background: #FFFFFF;
 }
+
+.err-resp {
+  color: #D3215D;
+  margin-top: 8px;
+  font-size: 17px;
+}

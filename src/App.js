@@ -6,62 +6,36 @@ import './app.css';
 class App extends Component {
 
   state = {
-    result: undefined,
-    phrase: undefined,
+    isPalindrome: false,
+    phrase: '',
+  };
 
-    responseStyle: undefined,
-  }
-
-  gettingString = phrase => {
-    if ( phrase.length > 0 ) {
+  checkPhrase = phrase => {
+    const formattedPhrase = phrase.replace( /\s/g, '' ).toLowerCase();
+    const reversedPhrase = formattedPhrase.split('').reverse().join('');
+    if (phrase === reversedPhrase) {
       this.setState({
-        phrase: phrase
+        isPalindrome: true
       });
-      const string = phrase.replace( /\s/g, '' ).toLowerCase();
-      this.stringCheck(string);
-      this.clearState();
     } else {
       this.setState({
-        phrase: undefined,
-        result: <p className="err-resp">please enter a phrase at the beginning</p>,
-        responseStyle: "err",
+        isPalindrome: false
       });
-      this.clearState();
     }
   };
 
-  stringCheck = string => {
-    if (string === string.split('').reverse().join('')) {
-      this.setState ({
-        result: <p className="resp">is palindrome</p>,
-        responseStyle: "is-palindrome-resp",
-      })
-    } else {
-      this.setState ({
-        result: <p className="resp">is not palindrome</p>,
-        responseStyle: "is-not-palindrome-resp",
-      })
-    }
-  };
-
-  clearState = () => {
-    setTimeout(() => {
-      this.setState({
-        result: undefined,
-        phrase: undefined,
-        responseStyle: undefined,
-      })
-    }, 3000);
+  setPhrase = phrase => {
+    this.setState({ phrase }, () => this.checkPhrase(this.state.phrase));
   };
 
   render() {
-    const { phrase, result, responseStyle } = this.state;
+    const { phrase, isPalindrome } = this.state;
     const phraseContext = {
       phrase,
-      result,
-      responseStyle,
-      method: this.gettingString
-    }
+      isPalindrome,
+      setPhrase: this.setPhrase
+    };
+
     return (
       <div className="App">
         <PhraseProvider value = { phraseContext }>
