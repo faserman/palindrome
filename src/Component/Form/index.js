@@ -4,11 +4,11 @@ import './index.css';
 
 const Form = () => {
 
-  const { setPhrase, isPalindrome, phrase, onDataProcessing } = useContext(PhraseContext);
+  const { setPhrase, isPalindrome, phrase } = useContext(PhraseContext);
 
   const resultStyle = isPalindrome ? 'is-palindrome-resp' : 'is-not-palindrome-resp';
   const resultText = isPalindrome ? 'is palindrome' : 'is not palindrome';
-  const response = onDataProcessing ? (
+  const response = (phrase.trim()) ? (
     <div className={ resultStyle }>
       <p className="resp">{ resultText }</p>
     </div>

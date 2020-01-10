@@ -7,7 +7,6 @@ class App extends Component {
 
   state = {
     isPalindrome: false,
-    onDataProcessing: false,
     phrase: '',
   };
 
@@ -28,22 +27,19 @@ class App extends Component {
   setPhrase = phrase => {
     if (phrase.length === 0) {
       this.setState({
-        onDataProcessing: false,
         phrase: '',
       });
     } else if (this.state.phrase !== phrase) {
       this.setState({
         phrase: phrase,
-        onDataProcessing: true,
       }, () => this.checkPhrase(this.state.phrase));
     };
   };
 
   render() {
-    const { phrase, isPalindrome, onDataProcessing } = this.state;
+    const { phrase, isPalindrome } = this.state;
     const phraseContext = {
       phrase,
-      onDataProcessing,
       isPalindrome,
       setPhrase: this.setPhrase
     };
